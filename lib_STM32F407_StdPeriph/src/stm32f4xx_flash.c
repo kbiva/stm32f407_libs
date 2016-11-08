@@ -596,6 +596,8 @@ FLASH_Status FLASH_EraseAllSectors(uint8_t VoltageRange)
   return status;
 }
 
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx)
+
 /**
   * @brief  Erases all FLASH Sectors in Bank 1.
   *
@@ -728,6 +730,8 @@ FLASH_Status FLASH_EraseAllBank2Sectors(uint8_t VoltageRange)
   /* Return the Erase Status */
   return status;
 }
+
+#endif /* STM32F427_437xx ||  STM32F429_439xx */
 
 /**
   * @brief  Programs a double word (64-bit) at a specified address.
@@ -1029,6 +1033,8 @@ void FLASH_OB_WRPConfig(uint32_t OB_WRP, FunctionalState NewState)
   }
 }
 
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx)
+
 /**
   * @brief  Enables or disables the write protection of the desired sectors, for the second
   *         1 Mb of the Flash
@@ -1070,6 +1076,11 @@ void FLASH_OB_WRP1Config(uint32_t OB_WRP, FunctionalState NewState)
     }
   }
 }
+
+#endif /* STM32F427_437xx ||  STM32F429_439xx */
+
+
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx) || defined(STM32F401xx) || defined(STM32F411xE)
 
 /**
   * @brief  Select the Protection Mode (SPRMOD).
@@ -1152,6 +1163,10 @@ void FLASH_OB_PCROPConfig(uint32_t OB_PCROP, FunctionalState NewState)
   }
 }
 
+#endif /* STM32F427_437xx ||  STM32F429_439xx || STM32F401xx || STM32F411xE */
+
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx)
+
 /**
    * @brief Enables or disables the read/write protection (PCROP) of the desired
   *         sectors
@@ -1188,6 +1203,8 @@ void FLASH_OB_PCROP1Config(uint32_t OB_PCROP, FunctionalState NewState)
     }
   }
 }
+
+#endif /* STM32F427_437xx ||  STM32F429_439xx */
 
 
 /**
@@ -1264,6 +1281,8 @@ void FLASH_OB_UserConfig(uint8_t OB_IWDG, uint8_t OB_STOP, uint8_t OB_STDBY)
   }
 }
 
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx)
+
 /**
   * @brief  Configure the Dual Bank Boot.
   *
@@ -1285,6 +1304,8 @@ void FLASH_OB_BootConfig(uint8_t OB_BOOT)
   *(__IO uint8_t *)OPTCR_BYTE0_ADDRESS |= OB_BOOT;
 
 }
+
+#endif /* STM32F427_437xx ||  STM32F429_439xx */
 
 /**
   * @brief  Sets the BOR Level.
@@ -1349,6 +1370,8 @@ uint16_t FLASH_OB_GetWRP(void)
   return (*(__IO uint16_t *)(OPTCR_BYTE2_ADDRESS));
 }
 
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx)
+
 /**
   * @brief  Returns the FLASH Write Protection Option Bytes value.
   *
@@ -1362,6 +1385,10 @@ uint16_t FLASH_OB_GetWRP1(void)
   /* Return the FLASH write protection Register value */
   return (*(__IO uint16_t *)(OPTCR1_BYTE2_ADDRESS));
 }
+
+#endif /* STM32F427_437xx ||  STM32F429_439xx */
+
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx) || defined(STM32F401xx) || defined(STM32F411xE)
 
 /**
   * @brief  Returns the FLASH PC Read/Write Protection Option Bytes value.
@@ -1377,6 +1404,10 @@ uint16_t FLASH_OB_GetPCROP(void)
   return (*(__IO uint16_t *)(OPTCR_BYTE2_ADDRESS));
 }
 
+#endif /* STM32F427_437xx ||  STM32F429_439xx || STM32F401xx || STM32F411xE */
+
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx)
+
 /**
   * @brief  Returns the FLASH PC Read/Write Protection Option Bytes value.
   *
@@ -1390,6 +1421,8 @@ uint16_t FLASH_OB_GetPCROP1(void)
   /* Return the FLASH write protection Register value */
   return (*(__IO uint16_t *)(OPTCR1_BYTE2_ADDRESS));
 }
+
+#endif /* STM32F427_437xx ||  STM32F429_439xx */
 
 /**
   * @brief  Returns the FLASH Read Protection level.
