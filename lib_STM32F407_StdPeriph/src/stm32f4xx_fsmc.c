@@ -378,19 +378,19 @@ void FSMC_NANDDeInit(uint32_t FSMC_Bank)
   if(FSMC_Bank == FSMC_Bank2_NAND)
   {
     /* Set the FSMC_Bank2 registers to their reset values */
-    FSMC_Bank2->PCR2 = 0x00000018;
-    FSMC_Bank2->SR2 = 0x00000040;
-    FSMC_Bank2->PMEM2 = 0xFCFCFCFC;
-    FSMC_Bank2->PATT2 = 0xFCFCFCFC;
+    FSMC_Bank2_3->PCR2 = 0x00000018;
+    FSMC_Bank2_3->SR2 = 0x00000040;
+    FSMC_Bank2_3->PMEM2 = 0xFCFCFCFC;
+    FSMC_Bank2_3->PATT2 = 0xFCFCFCFC;
   }
   /* FSMC_Bank3_NAND */
   else
   {
     /* Set the FSMC_Bank3 registers to their reset values */
-    FSMC_Bank3->PCR3 = 0x00000018;
-    FSMC_Bank3->SR3 = 0x00000040;
-    FSMC_Bank3->PMEM3 = 0xFCFCFCFC;
-    FSMC_Bank3->PATT3 = 0xFCFCFCFC;
+    FSMC_Bank2_3->PCR3 = 0x00000018;
+    FSMC_Bank2_3->SR3 = 0x00000040;
+    FSMC_Bank2_3->PMEM3 = 0xFCFCFCFC;
+    FSMC_Bank2_3->PATT3 = 0xFCFCFCFC;
   }
 }
 
@@ -425,12 +425,12 @@ void FSMC_NANDInit(FSMC_NANDInitTypeDef* FSMC_NANDInitStruct)
   if(FSMC_NANDInitStruct->FSMC_Bank == FSMC_Bank2_NAND)
   {
   /* Get the NAND bank 2 register value */
-    tmppcr = FSMC_Bank2->PCR2;
+    tmppcr = FSMC_Bank2_3->PCR2;
   }
   else
   {
   /* Get the NAND bank 3 register value */
-    tmppcr = FSMC_Bank3->PCR3;
+    tmppcr = FSMC_Bank2_3->PCR3;
   }
 
   /* Clear PWAITEN, PBKEN, PTYP, PWID, ECCEN, TCLR, TAR and ECCPS bits */
@@ -450,12 +450,12 @@ void FSMC_NANDInit(FSMC_NANDInitTypeDef* FSMC_NANDInitStruct)
   if(FSMC_NANDInitStruct->FSMC_Bank == FSMC_Bank2_NAND)
   {
     /* Get the NAND bank 2 register value */
-    tmppmem = FSMC_Bank2->PMEM2;
+    tmppmem = FSMC_Bank2_3->PMEM2;
   }
   else
   {
     /* Get the NAND bank 3 register value */
-    tmppmem = FSMC_Bank3->PMEM3;
+    tmppmem = FSMC_Bank2_3->PMEM3;
   }
 
   /* Clear MEMSETx, MEMWAITx, MEMHOLDx and MEMHIZx bits */
@@ -471,12 +471,12 @@ void FSMC_NANDInit(FSMC_NANDInitTypeDef* FSMC_NANDInitStruct)
   if(FSMC_NANDInitStruct->FSMC_Bank == FSMC_Bank2_NAND)
   {
     /* Get the NAND bank 2 register value */
-    tmppatt = FSMC_Bank2->PATT2;
+    tmppatt = FSMC_Bank2_3->PATT2;
   }
   else
   {
     /* Get the NAND bank 3 register value */
-    tmppatt = FSMC_Bank2->PATT2;
+    tmppatt = FSMC_Bank2_3->PATT2;
   }
 
   /* Clear ATTSETx, ATTWAITx, ATTHOLDx and ATTHIZx bits */
@@ -492,16 +492,16 @@ void FSMC_NANDInit(FSMC_NANDInitTypeDef* FSMC_NANDInitStruct)
   if(FSMC_NANDInitStruct->FSMC_Bank == FSMC_Bank2_NAND)
   {
     /* FSMC_Bank2_NAND registers configuration */
-    FSMC_Bank2->PCR2 = tmppcr;
-    FSMC_Bank2->PMEM2 = tmppmem;
-    FSMC_Bank2->PATT2 = tmppatt;
+    FSMC_Bank2_3->PCR2 = tmppcr;
+    FSMC_Bank2_3->PMEM2 = tmppmem;
+    FSMC_Bank2_3->PATT2 = tmppatt;
   }
   else
   {
     /* FSMC_Bank3_NAND registers configuration */
-    FSMC_Bank3->PCR3 = tmppcr;
-    FSMC_Bank3->PMEM3 = tmppmem;
-    FSMC_Bank3->PATT3 = tmppatt;
+    FSMC_Bank2_3->PCR3 = tmppcr;
+    FSMC_Bank2_3->PMEM3 = tmppmem;
+    FSMC_Bank2_3->PATT3 = tmppatt;
   }
 }
 
@@ -551,11 +551,11 @@ void FSMC_NANDCmd(uint32_t FSMC_Bank, FunctionalState NewState)
     /* Enable the selected NAND Bank by setting the PBKEN bit in the PCRx register */
     if(FSMC_Bank == FSMC_Bank2_NAND)
     {
-      FSMC_Bank2->PCR2 |= PCR_PBKEN_SET;
+      FSMC_Bank2_3->PCR2 |= PCR_PBKEN_SET;
     }
     else
     {
-      FSMC_Bank3->PCR3 |= PCR_PBKEN_SET;
+      FSMC_Bank2_3->PCR3 |= PCR_PBKEN_SET;
     }
   }
   else
@@ -563,11 +563,11 @@ void FSMC_NANDCmd(uint32_t FSMC_Bank, FunctionalState NewState)
     /* Disable the selected NAND Bank by clearing the PBKEN bit in the PCRx register */
     if(FSMC_Bank == FSMC_Bank2_NAND)
     {
-      FSMC_Bank2->PCR2 &= PCR_PBKEN_RESET;
+      FSMC_Bank2_3->PCR2 &= PCR_PBKEN_RESET;
     }
     else
     {
-      FSMC_Bank3->PCR3 &= PCR_PBKEN_RESET;
+      FSMC_Bank2_3->PCR3 &= PCR_PBKEN_RESET;
     }
   }
 }
@@ -591,11 +591,11 @@ void FSMC_NANDECCCmd(uint32_t FSMC_Bank, FunctionalState NewState)
     /* Enable the selected NAND Bank ECC function by setting the ECCEN bit in the PCRx register */
     if(FSMC_Bank == FSMC_Bank2_NAND)
     {
-      FSMC_Bank2->PCR2 |= PCR_ECCEN_SET;
+      FSMC_Bank2_3->PCR2 |= PCR_ECCEN_SET;
     }
     else
     {
-      FSMC_Bank3->PCR3 |= PCR_ECCEN_SET;
+      FSMC_Bank2_3->PCR3 |= PCR_ECCEN_SET;
     }
   }
   else
@@ -603,11 +603,11 @@ void FSMC_NANDECCCmd(uint32_t FSMC_Bank, FunctionalState NewState)
     /* Disable the selected NAND Bank ECC function by clearing the ECCEN bit in the PCRx register */
     if(FSMC_Bank == FSMC_Bank2_NAND)
     {
-      FSMC_Bank2->PCR2 &= PCR_ECCEN_RESET;
+      FSMC_Bank2_3->PCR2 &= PCR_ECCEN_RESET;
     }
     else
     {
-      FSMC_Bank3->PCR3 &= PCR_ECCEN_RESET;
+      FSMC_Bank2_3->PCR3 &= PCR_ECCEN_RESET;
     }
   }
 }
@@ -627,12 +627,12 @@ uint32_t FSMC_GetECC(uint32_t FSMC_Bank)
   if(FSMC_Bank == FSMC_Bank2_NAND)
   {
     /* Get the ECCR2 register value */
-    eccval = FSMC_Bank2->ECCR2;
+    eccval = FSMC_Bank2_3->ECCR2;
   }
   else
   {
     /* Get the ECCR3 register value */
-    eccval = FSMC_Bank3->ECCR3;
+    eccval = FSMC_Bank2_3->ECCR3;
   }
   /* Return the error correction code value */
   return(eccval);
@@ -875,12 +875,12 @@ void FSMC_ITConfig(uint32_t FSMC_Bank, uint32_t FSMC_IT, FunctionalState NewStat
     /* Enable the selected FSMC_Bank2 interrupts */
     if(FSMC_Bank == FSMC_Bank2_NAND)
     {
-      FSMC_Bank2->SR2 |= FSMC_IT;
+      FSMC_Bank2_3->SR2 |= FSMC_IT;
     }
     /* Enable the selected FSMC_Bank3 interrupts */
     else if (FSMC_Bank == FSMC_Bank3_NAND)
     {
-      FSMC_Bank3->SR3 |= FSMC_IT;
+      FSMC_Bank2_3->SR3 |= FSMC_IT;
     }
     /* Enable the selected FSMC_Bank4 interrupts */
     else
@@ -894,12 +894,12 @@ void FSMC_ITConfig(uint32_t FSMC_Bank, uint32_t FSMC_IT, FunctionalState NewStat
     if(FSMC_Bank == FSMC_Bank2_NAND)
     {
 
-      FSMC_Bank2->SR2 &= (uint32_t)~FSMC_IT;
+      FSMC_Bank2_3->SR2 &= (uint32_t)~FSMC_IT;
     }
     /* Disable the selected FSMC_Bank3 interrupts */
     else if (FSMC_Bank == FSMC_Bank3_NAND)
     {
-      FSMC_Bank3->SR3 &= (uint32_t)~FSMC_IT;
+      FSMC_Bank2_3->SR3 &= (uint32_t)~FSMC_IT;
     }
     /* Disable the selected FSMC_Bank4 interrupts */
     else
@@ -935,11 +935,11 @@ FlagStatus FSMC_GetFlagStatus(uint32_t FSMC_Bank, uint32_t FSMC_FLAG)
 
   if(FSMC_Bank == FSMC_Bank2_NAND)
   {
-    tmpsr = FSMC_Bank2->SR2;
+    tmpsr = FSMC_Bank2_3->SR2;
   }
   else if(FSMC_Bank == FSMC_Bank3_NAND)
   {
-    tmpsr = FSMC_Bank3->SR3;
+    tmpsr = FSMC_Bank2_3->SR3;
   }
   /* FSMC_Bank4_PCCARD*/
   else
@@ -982,11 +982,11 @@ void FSMC_ClearFlag(uint32_t FSMC_Bank, uint32_t FSMC_FLAG)
 
   if(FSMC_Bank == FSMC_Bank2_NAND)
   {
-    FSMC_Bank2->SR2 &= ~FSMC_FLAG;
+    FSMC_Bank2_3->SR2 &= ~FSMC_FLAG;
   }
   else if(FSMC_Bank == FSMC_Bank3_NAND)
   {
-    FSMC_Bank3->SR3 &= ~FSMC_FLAG;
+    FSMC_Bank2_3->SR3 &= ~FSMC_FLAG;
   }
   /* FSMC_Bank4_PCCARD*/
   else
@@ -1020,11 +1020,11 @@ ITStatus FSMC_GetITStatus(uint32_t FSMC_Bank, uint32_t FSMC_IT)
 
   if(FSMC_Bank == FSMC_Bank2_NAND)
   {
-    tmpsr = FSMC_Bank2->SR2;
+    tmpsr = FSMC_Bank2_3->SR2;
   }
   else if(FSMC_Bank == FSMC_Bank3_NAND)
   {
-    tmpsr = FSMC_Bank3->SR3;
+    tmpsr = FSMC_Bank2_3->SR3;
   }
   /* FSMC_Bank4_PCCARD*/
   else
@@ -1068,11 +1068,11 @@ void FSMC_ClearITPendingBit(uint32_t FSMC_Bank, uint32_t FSMC_IT)
 
   if(FSMC_Bank == FSMC_Bank2_NAND)
   {
-    FSMC_Bank2->SR2 &= ~(FSMC_IT >> 3);
+    FSMC_Bank2_3->SR2 &= ~(FSMC_IT >> 3);
   }
   else if(FSMC_Bank == FSMC_Bank3_NAND)
   {
-    FSMC_Bank3->SR3 &= ~(FSMC_IT >> 3);
+    FSMC_Bank2_3->SR3 &= ~(FSMC_IT >> 3);
   }
   /* FSMC_Bank4_PCCARD*/
   else
