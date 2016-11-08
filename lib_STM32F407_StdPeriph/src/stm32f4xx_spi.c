@@ -179,7 +179,7 @@
 #define PLLCFGR_PPLR_MASK         ((uint32_t)0x70000000)
 #define PLLCFGR_PPLN_MASK         ((uint32_t)0x00007FC0)
 
-#define SPI_CR2_FRF               ((uint16_t)0x0010)
+//#define SPI_CR2_FRF               ((uint16_t)0x0010)
 #define SPI_SR_TIFRFE             ((uint16_t)0x0100)
 
 /* Private macro -------------------------------------------------------------*/
@@ -240,35 +240,14 @@ void SPI_I2S_DeInit(SPI_TypeDef* SPIx)
     /* Release SPI2 from reset state */
     RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI2, DISABLE);
   }
-  else if (SPIx == SPI3)
-  {
-    /* Enable SPI3 reset state */
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
-    /* Release SPI3 from reset state */
-    RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
-  }
-  else if (SPIx == SPI4)
-  {
-    /* Enable SPI4 reset state */
-    RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI4, ENABLE);
-    /* Release SPI4 from reset state */
-    RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI4, DISABLE);
-  }
-  else if (SPIx == SPI5)
-  {
-    /* Enable SPI5 reset state */
-    RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI5, ENABLE);
-    /* Release SPI5 from reset state */
-    RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI5, DISABLE);
-  }
   else
   {
-    if (SPIx == SPI6)
+    if (SPIx == SPI3)
     {
-      /* Enable SPI6 reset state */
-      RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI6, ENABLE);
-      /* Release SPI6 from reset state */
-      RCC_APB2PeriphResetCmd(RCC_APB2Periph_SPI6, DISABLE);
+      /* Enable SPI3 reset state */
+      RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, ENABLE);
+      /* Release SPI3 from reset state */
+      RCC_APB1PeriphResetCmd(RCC_APB1Periph_SPI3, DISABLE);
     }
   }
 }
