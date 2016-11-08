@@ -241,7 +241,7 @@ void RCC_DeInit(void)
   RCC->PLLI2SCFGR = 0x20003000;
 #endif /* STM32F40_41xxx || STM32F427_437xx || STM32F429_439xx || STM32F401xx || STM32F411xE || STM32F446xx || STM32F469_479xx */
 
-#if defined(STM32F40_41xxx) || defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F446xx) || defined(STM32F469_479xx)
+#if defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F446xx) || defined(STM32F469_479xx)
   /* Reset PLLSAICFGR register, only available for STM32F42xxx/43xxx/446xx/469xx/479xx devices */
   RCC->PLLSAICFGR = 0x24003000;
 #endif /* STM32F40_41xxx || STM32F427_437xx || STM32F429_439xx || STM32F446xx || STM32F469_479xx */
@@ -252,8 +252,10 @@ void RCC_DeInit(void)
   /* Disable all interrupts */
   RCC->CIR = 0x00000000;
 
+#if defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F446xx) || defined(STM32F469_479xx)
   /* Disable Timers clock prescalers selection, only available for STM32F42/43xxx devices */
   RCC->DCKCFGR = 0x00000000;
+#endif /* STM32F427_437xx || STM32F429_439xx || STM32F446xx || STM32F469_479xx */
 
 #if defined(STM32F410xx)
   /* Disable LPTIM and FMPI2C clock prescalers selection, only available for STM32F410xx devices */
@@ -815,7 +817,7 @@ void RCC_PLLSAIConfig(uint32_t PLLSAIM, uint32_t PLLSAIN, uint32_t PLLSAIP, uint
 }
 #endif /* STM32F446xx */
 
-#if defined(STM32F40_41xxx) || defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F401xx) || defined(STM32F411xE)
+#if defined(STM32F427_437xx) || defined(STM32F429_439xx)
 /**
   * @brief  Configures the PLLSAI clock multiplication and division factors.
   *
@@ -847,7 +849,9 @@ void RCC_PLLSAIConfig(uint32_t PLLSAIN, uint32_t PLLSAIQ, uint32_t PLLSAIR)
 
   RCC->PLLSAICFGR = (PLLSAIN << 6) | (PLLSAIQ << 24) | (PLLSAIR << 28);
 }
-#endif /* STM32F40_41xxx || STM32F427_437xx || STM32F429_439xx || STM32F401xx || STM32F411xE */
+#endif /* STM32F427_437xx || STM32F429_439xx */
+
+#if defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F446xx) || defined(STM32F469_479xx)
 
 /**
   * @brief  Enables or disables the PLLSAI.
@@ -858,12 +862,15 @@ void RCC_PLLSAIConfig(uint32_t PLLSAIN, uint32_t PLLSAIQ, uint32_t PLLSAIR)
   * @param  NewState: new state of the PLLSAI. This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
+
 void RCC_PLLSAICmd(FunctionalState NewState)
 {
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(NewState));
   *(__IO uint32_t *) CR_PLLSAION_BB = (uint32_t)NewState;
 }
+
+#endif /* STM32F427_437xx || STM32F429_439xx || STM32F446xx || STM32F469_479xx */
 
 /**
   * @brief  Enables or disables the Clock Security System.
@@ -1649,7 +1656,7 @@ void RCC_I2SCLKConfig(uint32_t RCC_I2SCLKSource)
 }
 #endif /* STM32F40_41xxx || STM32F427_437xx || STM32F429_439xx || STM32F401xx || STM32F411xE || STM32F469_479xx */
 
-#if defined(STM32F40_41xxx) || defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F469_479xx)
+#if defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F469_479xx)
 /**
   * @brief  Configures SAI1BlockA clock source selection.
   *
@@ -1721,7 +1728,6 @@ void RCC_SAIBlockBCLKConfig(uint32_t RCC_SAIBlockBCLKSource)
   /* Store the new value */
   RCC->DCKCFGR = tmpreg;
 }
-#endif /* STM32F40_41xxx || STM32F427_437xx || STM32F429_439xx || STM32F469_479xx */
 
 /**
   * @brief  Configures the SAI clock Divider coming from PLLI2S.
@@ -1823,6 +1829,8 @@ void RCC_LTDCCLKDivConfig(uint32_t RCC_PLLSAIDivR)
   RCC->DCKCFGR = tmpreg;
 }
 
+#endif /* STM32F427_437xx || STM32F429_439xx || STM32F469_479xx */
+
 #if defined(STM32F412xG)
 /**
   * @brief  Configures the DFSDM clock source (DFSDMCLK).
@@ -1883,6 +1891,8 @@ void RCC_DFSDM1ACLKConfig(uint32_t RCC_DFSDMACLKSource)
 }
 #endif /* STM32F412xG */
 
+#if defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F401xx) || defined(STM32F411xE)
+
 /**
   * @brief  Configures the Timers clocks prescalers selection.
   *
@@ -1908,6 +1918,8 @@ void RCC_TIMCLKPresConfig(uint32_t RCC_TIMCLKPrescaler)
 
   *(__IO uint32_t *) DCKCFGR_TIMPRE_BB = RCC_TIMCLKPrescaler;
 }
+
+#endif /* STM32F427_437xx || STM32F429_439xx || STM32F401xx || STM32F411xE */
 
 /**
   * @brief  Enables or disables the AHB1 peripheral clock.
@@ -2536,6 +2548,8 @@ void RCC_APB2PeriphClockLPModeCmd(uint32_t RCC_APB2Periph, FunctionalState NewSt
   }
 }
 
+#if defined(STM32F410xx) || defined(STM32F411xE) || defined(STM32F446xx) || defined(STM32F469_479xx)
+
 /**
   * @brief Configures the External Low Speed oscillator mode (LSE mode).
   * @note This mode is only available for STM32F410xx/STM32F411xx/STM32F446xx/STM32F469_479xx devices.
@@ -2559,6 +2573,8 @@ void RCC_LSEModeConfig(uint8_t RCC_Mode)
     CLEAR_BIT(RCC->BDCR, RCC_BDCR_LSEMOD);
   }
 }
+
+#endif /* STM32F410xx || STM32F411xE || STM32F446xx || STM32F469_479xx */
 
 #if defined(STM32F410xx)
 /**
