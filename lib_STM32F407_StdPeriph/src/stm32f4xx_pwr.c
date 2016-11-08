@@ -504,6 +504,8 @@ void PWR_OverDriveSWCmd(FunctionalState NewState)
   *(__IO uint32_t *) CR_ODSWEN_BB = (uint32_t)NewState;
 }
 
+#if defined(STM32F427_437xx) || defined(STM32F429_439xx)
+
 /**
   * @brief   Enables or disables the Under-Drive mode.
   *
@@ -538,6 +540,8 @@ void PWR_UnderDriveCmd(FunctionalState NewState)
     PWR->CR &= (uint32_t)(~PWR_CR_UDEN);
   }
 }
+
+#endif /* STM32F427_437xx || STM32F429_439xx */
 
 #if defined(STM32F427_437xx) || defined(STM32F429_439xx) || defined(STM32F446xx)
 /**
