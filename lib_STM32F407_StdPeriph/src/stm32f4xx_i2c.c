@@ -327,6 +327,7 @@ void I2C_Cmd(I2C_TypeDef* I2Cx, FunctionalState NewState)
   }
 }
 
+#if defined(STM32F429_439xx) || defined(STM32F427_437xx) || defined(STM32F401xx) || defined(STM32F410xx) || defined(STM32F411xE)
 /**
   * @brief  Enables or disables the Analog filter of I2C peripheral.
   *
@@ -388,6 +389,7 @@ void I2C_DigitalFilterConfig(I2C_TypeDef* I2Cx, uint16_t I2C_DigitalFilter)
   /* Store the new register value */
   I2Cx->FLTR = tmpreg;
 }
+#endif
 
 /**
   * @brief  Generates I2Cx communication START condition.
