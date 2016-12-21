@@ -6,11 +6,11 @@ Library for the touchpanel with XPT2046 controller
 connected to the LCD with ILI9325 controler.
 Uses EXTI9_5_IRQHandler interrupt handler.
 Tested with:
-3.2" TFT LCD Display Module, Model: HY32D from Waveshare
-Open407V-D board from WaveShare
-STM32F4 Discovery board
+* 3.2" TFT LCD Display Module, Model: HY32D from Waveshare
+* Open407V-D board from WaveShare
+* STM32F4 Discovery board
 
-Based on work from Andy Brown. <www.andybrown.me.uk>
+Based on work from Andy Brown. http://andybrown.me.uk
 Converted from C++ to C with some modifications.
 
 ### Usage example ###
